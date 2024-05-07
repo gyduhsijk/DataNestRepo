@@ -1,19 +1,13 @@
-function rotateRight(head, k) {
-  if (!head) return null;
-  let length = 1;
-  let tail = head;
-  while (tail.next) {
-    length++;
-    tail = tail.next;
+const stoogeSort = (arr, i = 0, j = arr.length - 1) => {
+  if (arr[i] > arr[j]) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  k %= length;
-  if (k === 0) return head;
-  let newTail = head;
-  for (let i = 0; i < length - k - 1; i++) {
-    newTail = newTail.next;
+  if (i + 1 >= j) {
+    return arr;
   }
-  const newHead = newTail.next;
-  newTail.next = null;
-  tail.next = head;
-  return newHead;
-}
+  const t = Math.floor((j - i + 1) / 3);
+  stoogeSort(arr, i, j - t);
+  stoogeSort(arr, i + t, j);
+  stoogeSort(arr, i, j - t);
+  return arr;
+};
