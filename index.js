@@ -1,14 +1,11 @@
-function rob(nums) {
-  if (nums.length === 1) return nums[0];
-  const robRange = (start, end) => {
-    let prevMax = 0;
-    let currMax = 0;
-    for (let i = start; i <= end; i++) {
-      const temp = currMax;
-      currMax = Math.max(currMax, prevMax + nums[i]);
-      prevMax = temp;
-    }
-    return currMax;
-  };
-  return Math.max(robRange(0, nums.length - 2), robRange(1, nums.length - 1));
+function isValidBST(root) {
+  return isValid(root, null, null);
+}
+function isValid(node, min, max) {
+  if (!node) return true;
+  if ((min !== null && node.val <= min) || (max !== null && node.val >= max))
+    return false;
+  return (
+    isValid(node.left, min, node.val) && isValid(node.right, node.val, max)
+  );
 }
